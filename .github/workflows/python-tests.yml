@@ -1,0 +1,30 @@
+name: Pytest Automation Framework
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  test:
+
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run UI and API Tests
+        run: |
+          pytest -v --html=reports/report.html --self-contained-html
